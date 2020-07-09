@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is web of 551 final project</title>
+</head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+
+
+
+
+
+<body>
+
+    <div>
+    <div class="App">
+      <header class="App-header">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586667389994&di=4f2d0ebd4dcedd45f3bfec131cd912a2&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F44%2F03%2F5ba253b009ac4_610.jpg" class="App-logo" alt="logo" width="300" height="300"/>
+        <p class="App-text">
+          restaurant
+        </p>
+      </header>
+    </div>
+    <div class="App-button-position">
+      <button class="App-button" onclick="location.href = '{{ url_for('world') }}';">
+        <p class='App-button-text'>
+            <b>world</b>
+        </p>
+      </button>
+      <button class="App-button" onclick="location.href = '{{ url_for('sakila') }}';">
+        <p class='App-button-text'><b>sakila</b></p>
+      </button>
+      <button class="App-button" onclick="location.href = '{{ url_for('classic') }}';" >
+        <p class='App-button-text'><b>classic</b></p>
+      </button>
+    </div>
+    </div>
+    <h2 style="text-align:center">Please choose the database before searching</h2>
+
+<div class="searchbar" align="center">
+    <form action="/api/start" enctype='multipart/form-data' method='POST'>
+    <input name="file_path" type="text" placeholder="key words ..." value={{fname}}>
+        <button type="submit"></button>
+    </form>
+</div>
+
+
+
+
+</body>
+
+</html>

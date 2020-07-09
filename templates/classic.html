@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is web of 551 final project</title>
+</head>
+<!--<link rel="stylesheet" rev="stylesheet" href="App.css" type="text/css" media="all" />-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+
+
+<script>
+    function ordersClassicGet(e) {
+        fname = e.innerText;
+        window.location.href = "/classic_orders_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function paymentsClassicGet(e) {
+        fname = e.innerText;
+        window.location.href = "/classic_payments_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function customersClassicGet(e) {
+        fname = e.innerText;
+        window.location.href = "/classic_customers_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+
+
+<body>
+
+    <div>
+        <div class="App">
+          <header class="App-header">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586667389994&di=4f2d0ebd4dcedd45f3bfec131cd912a2&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F44%2F03%2F5ba253b009ac4_610.jpg" class="App-logo" alt="logo" width="300" height="300"/>
+            <!-- <img src="https://article.innovadatabase.com/articleimgs/article_images/637091476093989179woman%20supermarket.jpg" class="App-logo" alt="logo" width="300" height="300"/> -->
+
+            <p class="App-text">
+              restaurant
+            </p>
+          </header>
+        </div>
+        <div class="App-button-position">
+          <button class="App-button" onclick="location.href = '{{ url_for('world') }}';">
+            <p class='App-button-text'>
+                <b>world</b>
+            </p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('sakila') }}';">
+            <p class='App-button-text'><b>sakila</b></p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('classic') }}';">
+            <p class='App-button-text'><b>classic</b></p>
+          </button>
+        </div>
+    </div>
+    <h2 style="text-align:center">Current Database:Classic</h2>
+
+<!-- search button   -->
+<div class="searchbar" align="center">
+    <form action="/api/start2" enctype='multipart/form-data' method='POST'>
+    <input name="file_path" type="text" placeholder="key words ..." value={{fname}}>
+        <button type="submit"></button>
+    </form>
+</div>
+
+
+
+
+<!--classic form-->
+<h2 style="text-align:center">Orders Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>comments</th>
+                <th>customerNumber</th>
+                <th>orderNumber</th>
+                <th>status</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in orders %}
+                <tr>
+                    <td>{{ entry.comments }}</td>
+                    <td  onclick="ordersClassicGet(this)">
+                        <u>
+                        <i id="classic_orders">
+                                {{ entry.customerNumber }}
+                        </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.orderNumber }}</td>
+                    <td>{{ entry.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('ordersclassic') }}';">total</button>
+
+</div>
+<h2 style="text-align:center">payments Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>amount</th>
+                <th>checkNumber</th>
+                <th>customerNumber</th>
+                <th>paymentDate</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in payments %}
+                <tr>
+                    <td>{{ entry.amount }}</td>
+                    <td>{{ entry.checkNumber }}</td>           
+                    <td  onclick="paymentsClassicGet(this)">
+                        <u>
+                            <i id="classic_payments">
+                                    {{ entry.customerNumber }}
+                            </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.paymentDate }}</td>    
+
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('paymentsclassic') }}';">total</button>
+</div>
+
+<h2 style="text-align:center">Customers Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>city</th>
+                <th>customerName</th>
+                <th>customerNumber</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in customers %}
+                <tr>
+
+                    <td>{{ entry.city }}</td>
+                    <td>{{ entry.customerName }}</td>
+                    <td  onclick="customersClassicGet(this)">
+                        <u>
+                            <i id="classic_customers">
+                                    {{ entry.customerNumber }}
+                            </i>
+                        </u>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('customersclassic') }}';">total</button>
+</div>
+
+
+
+</body>
+
+</html>
+

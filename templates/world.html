@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is web of 551 final project</title>
+</head>
+<!--<link rel="stylesheet" rev="stylesheet" href="App.css" type="text/css" media="all" />-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+
+
+<script>
+    function cityWordGet(e) {
+        fname = e.innerText;
+        window.location.href = "/world_city_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function countryWordGet(e) {
+        fname = e.innerText;
+        window.location.href = "/world_country_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function countrylanguageWordGet(e) {
+        fname = e.innerText;
+        window.location.href = "/world_countrylanguage_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+
+
+<body>
+
+    <div>
+        <div class="App">
+          <header class="App-header">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586667389994&di=4f2d0ebd4dcedd45f3bfec131cd912a2&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F44%2F03%2F5ba253b009ac4_610.jpg" class="App-logo" alt="logo" width="300" height="300"/>
+            <p class="App-text">
+              restaurant
+            </p>
+          </header>
+        </div>
+        <div class="App-button-position">
+          <button class="App-button" onclick="location.href = '{{ url_for('world') }}';">
+            <p class='App-button-text'>
+                <b>world</b>
+            </p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('sakila') }}';">
+            <p class='App-button-text'><b>sakila</b></p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('classic') }}';">
+            <p class='App-button-text'><b>classic</b></p>
+          </button>
+        </div>
+    </div>
+    <h2 style="text-align:center">Current Database:World</h2>
+
+
+<!-- search button   -->
+<div class="searchbar" align="center">
+    <form action="/api/start" enctype='multipart/form-data' method='POST'>
+    <input name="file_path" type="text" placeholder="key words ..." value={{fname}}>
+        <button type="submit"></button>
+    </form>
+</div>
+
+
+
+
+<!--world form-->
+<h2 style="text-align:center">City Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>District</th>
+                <th>Name</th>
+                <th>CountryCode</th>
+                <th>Population</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in city %}
+                <tr>
+                    <td>{{ entry.ID }}</td>
+                    <td>{{ entry.District }}</td>
+                    <td>{{ entry.Name }}</td>
+                    <td  onclick="cityWordGet(this)">
+                        <u>
+                        <i id="world_city">
+                                {{ entry.CountryCode }}
+                        </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.Population }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('cityworld') }}';">total</button>
+</div>
+<h2 style="text-align:center">Country Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Continent</th>
+                <th>Name</th>
+                <th>Region</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in country %}
+                <tr>
+                    <td  onclick="countryWordGet(this)">
+                        <u>
+                            <i id="world_country">
+                                    {{ entry.Code }}
+                            </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.Continent }}</td>
+                    <td>{{ entry.Name }}</td>
+                    <td>{{ entry.Region }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('countryworld') }}';">total</button>
+</div>
+<h2 style="text-align:center">Countrylanguage Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>CountryCode</th>
+                <th>IsOfficial</th>
+                <th>Language</th>
+                <th>Percentage</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in countrylanguage %}
+                <tr>
+                    <td  onclick="countrylanguageWordGet(this)">
+                        <u>
+                            <i id="world_countrylanguage">
+                                    {{ entry.CountryCode }}
+                            </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.IsOfficial }}</td>
+                    <td>{{ entry.Language }}</td>
+                    <td>{{ entry.Percentage }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('countrylanguageworld') }}';">total</button>
+</div>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is web of 551 final project</title>
+</head>
+<!--<link rel="stylesheet" rev="stylesheet" href="App.css" type="text/css" media="all" />-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+
+
+<script>
+    function addressSakilaGet(e) {
+        fname = e.innerText;
+        window.location.href = "/sakila_address_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function customerSakilaGet(e) {
+        fname = e.innerText;
+        window.location.href = "/sakila_customer_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+<script>
+    function paymentSakilaGet(e) {
+        fname = e.innerText;
+        window.location.href = "/sakila_payment_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+
+<!-- <script>
+    function address1SakilaGet() {
+        fname = document.getElementById("sakila_address1").innerText;
+        window.location.href = "/sakila_address1_ref/" + fname;
+        console.log(fname)
+    }
+</script> -->
+
+<script>
+    function customer1SakilaGet(e) {
+        fname = e.innerText;
+        window.location.href = "/sakila_customer1_ref/" + fname;
+        console.log(fname)
+    }
+</script>
+
+<body>
+
+    <div>
+        <div class="App">
+          <header class="App-header">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586667389994&di=4f2d0ebd4dcedd45f3bfec131cd912a2&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F44%2F03%2F5ba253b009ac4_610.jpg" class="App-logo" alt="logo" width="300" height="300"/>
+            <p class="App-text">
+              restaurant
+            </p>
+          </header>
+        </div>
+        <div class="App-button-position">
+          <button class="App-button" onclick="location.href = '{{ url_for('world') }}';">
+            <p class='App-button-text'>
+                <b>world</b>
+            </p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('sakila') }}';">
+            <p class='App-button-text'><b>sakila</b></p>
+          </button>
+          <button class="App-button" onclick="location.href = '{{ url_for('classic') }}';">
+            <p class='App-button-text'><b>classic</b></p>
+          </button>
+        </div>
+    </div>
+    <h2 style="text-align:center">Current Database:Sakila</h2>
+
+<!-- search button   -->
+<div class="searchbar" align="center">
+    <form action="/api/start1" enctype='multipart/form-data' method='POST'>
+    <input name="file_path" type="text" placeholder="key words ..." value={{fname}}>
+        <button type="submit"></button>
+    </form>
+</div>
+
+
+
+
+<!--world form-->
+<h2 style="text-align:center">Customers Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>address_id</th>
+                <th>customer_id</th>
+                <th>email</th>
+                <th>first_name</th>
+                <th>last_name</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in customer %}
+                <tr>
+                    <td  onclick="customerSakilaGet(this)">
+                        <u>
+                            <i id="sakila_customer">
+                                    {{ entry.address_id }}
+                            </i>
+                        </u>
+                    </td>
+                    <td  onclick="customer1SakilaGet(this)">
+                        <u>
+                            <i id="sakila_customer1">
+                                    {{ entry.customer_id }}
+                            </i>
+                        </u>
+                    </td>
+                    <!-- <td>{{ entry.customer_id }}</td> -->
+                    <td>{{ entry.email }}</td>
+                    <td>{{ entry.first_name }}</td>
+                    <td>{{ entry.last_name  }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('customersakila') }}';">total</button>
+</div>
+<h2 style="text-align:center">Address Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>address</th>
+                <th>address_id</th>
+                <th>district</th>
+                <th>postal_code</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in address %}
+                <tr>
+                    <td>{{ entry.address }}</td>
+                    <td  onclick="addressSakilaGet(this)">
+                        <u>
+                        <i id="sakila_address">
+                                {{ entry.address_id }}
+                        </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.district }}</td>
+                    <td>{{ entry.postal_code }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('addresssakila') }}';">total</button>
+</div>
+
+<h2 style="text-align:center">Payments Table</h2>
+<div align="center">
+    <table class="dataintable">
+            <thead>
+            <tr>
+                <th>amount</th>
+                <th>customer_id</th>
+                <th>payment_date</th>
+                <th>payment_id</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entry in payment %}
+                <tr>
+                    <td>{{ entry.amount }}</td>
+                    <td  onclick="paymentSakilaGet(this)">
+                        <u>
+                            <i id="sakila_payment">
+                                    {{ entry.customer_id }}
+                            </i>
+                        </u>
+                    </td>
+                    <td>{{ entry.payment_date }}</td>
+                    <td>{{ entry.payment_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    <button onclick="location.href = '{{ url_for('paymentsakila') }}';">total</button>
+</div>
+
+
+
+</body>
+
+</html>
